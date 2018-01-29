@@ -24,7 +24,6 @@ const withErrorHandler = (WrappedComponent, axios) => {
 // remove the interceptor after it is called so it will not have multiple class instance
 // when this hoc component is used in multiple component
     componentWillUnmount() {
-      console.log('will amount', this.reqInterceptor, this.resInterceptor);
       axios.interceptors.request.eject(this.reqInterceptor);
       axios.interceptors.response.eject(this.resInterceptor);
     }
