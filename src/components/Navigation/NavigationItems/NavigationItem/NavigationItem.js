@@ -1,13 +1,18 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import classes from './NavigationItem.css';
 
 const navigationItem = (props) => (
     <li className={classes.NavigationItem}>
-      <a
-        href={props.link}
-        className={props.active ? classes.active : null}
+      <NavLink
+        // use activeClassName because webpack will rename the classes to be a unique
+        // class for this component.  using classes.active grabs the unique class created
+        // by webpack and append it to this link
+        activeClassName={classes.active}
+        to={props.link}
+        exact={props.exact}
         >{props.children}
-      </a>
+      </NavLink>
     </li>
 )
 
