@@ -1,14 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import registerServiceWorker from './registerServiceWorker';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import reducer from './store/reducer';
+import React from "react";
+import ReactDOM from "react-dom";
+import thunk from 'redux-thunk';
+import "./index.css";
+import App from "./App";
+import registerServiceWorker from "./registerServiceWorker";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { createStore, compose, applyMiddleware, combineReducers } from "redux";
+import burgerBuilderReducer from "./store/reducers/burgerBuilder";
+import orderReducer from './store/reducers/order';
 
-const store = createStore(reducer);
+const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// when using multiple reducer, state.value should now be state.nameOfReducer.value
+// in mapDispatchToProps
+const rootReducer = combineReducers({
+  burgerBuilder: burgerBuilderReducer,
+  order: orderReducer,
+})
+
+const store = createStore(
+  rootReducer,
+  composeEnchancers(applyMiddleware(thunk)),
+);
 
 const app = (
   <Provider store={store}>
@@ -18,5 +32,5 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById('root'));
+ReactDOM.render(app, document.getElementById("root"));
 registerServiceWorker();
