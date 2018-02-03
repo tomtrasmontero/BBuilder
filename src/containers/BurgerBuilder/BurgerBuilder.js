@@ -10,7 +10,8 @@ import axios from '../../axios-orders';
 import { connect } from 'react-redux';
 import * as actions from '../../store/actions/index';
 
-class BurgerBuilder extends Component {
+// export to use for testing
+export class BurgerBuilder extends Component {
   // modern way.  Old way was constructor super(props) this.state...
     state = {
       purchasing: false,
